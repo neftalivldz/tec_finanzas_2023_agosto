@@ -148,11 +148,13 @@ def update_realTimeData(n):
 strm = None
 config = cp.ConfigParser()
 config.read("../config.cfg")
-rdp.open_platform_session(config['session']['app_key'], rdp.GrantPassword(username = config['session']['user'], password = config['session']['password']))
-#rdp.open_desktop_session(config['session']['app_key'])
+#rdp.open_platform_session(config['session']['app_key'], rdp.GrantPassword(username = config['session']['user'], password = config['session']['password']))
+rdp.open_desktop_session(config['session']['app_key'])
 esgDataEndpoint = rdp.Endpoint(rdp.get_default_session(), "data/environmental-social-governance/v1/views/scores-standard")
 
 
 
 # run the dash app
-app.run_server(debug=True)
+if __name__ == '__main__':
+    app.server.run(port=8000, host='127.0.0.1')
+    app.run(debug=True)
